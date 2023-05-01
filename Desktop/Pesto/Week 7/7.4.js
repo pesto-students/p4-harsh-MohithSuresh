@@ -1,27 +1,15 @@
-function checkParenthesis(exp) {
-  const openParenthesis = "({[";
-  const stack = [];
-  for (let paren of exp) {
-    if (openParenthesis.includes(paren)) stack.push(paren);
-    else {
-      switch (paren) {
-        case ")":
-          if (stack.pop() != "(") return false;
-          break;
-        case "}":
-          if (stack.pop() != "{") return false;
-          break;
-        case "]":
-          if (stack.pop() != "[") return false;
-          break;
-        default:
-          return "not valid parenthesis";
-      }
-    }
+// try to sell every day and buy min value so far
+function maxProfit(array) {
+  let maxProfit = 0;
+  let minSoFar = array[0];
+  for (let price of array) {
+    const profit = price - minSoFar;
+    maxProfit = Math.max(maxProfit, profit);
+    minSoFar = Math.min(minSoFar, price);
   }
-  return stack.length == 0;
+  return maxProfit;
 }
 
-const exp = "()[]{}";
+const stockPrices = [7, 1, 5, 3, 6, 4];
 
-console.log(checkParenthesis(exp));
+console.log(maxProfit(stockPrices));

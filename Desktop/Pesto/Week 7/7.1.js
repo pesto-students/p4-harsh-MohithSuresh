@@ -1,25 +1,15 @@
-class Node {
-  constructor(val, next = null) {
-    this.val = val;
-    this.next = next;
-  }
-}
+//  Kadane's Algorithms
+function maxSubArray(nums) {
+  let maxSum = nums[0];
+  let currSum = 0;
 
-function reverseLinkedList(head) {
-  let current = head;
-  let prev = null;
-
-  while (current != null) {
-    const next = current.next;
-    current.next = prev;
-    prev = current;
-    current = next;
+  for (let i = 0; i < nums.length; i++) {
+    currSum += nums[i];
+    if (currSum > maxSum) maxSum = currSum;
+    if (currSum < 0) currSum = 0;
   }
 
-  head = prev;
-  return head;
+  return maxSum;
 }
 
-const head = new Node(1, new Node(2, new Node(3, new Node(4))));
-
-console.log(reverseLinkedList(head));
+console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4])); // 6 i.e. idx 3-6

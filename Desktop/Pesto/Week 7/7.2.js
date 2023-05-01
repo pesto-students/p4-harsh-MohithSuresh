@@ -1,31 +1,33 @@
-// left-shift the linked list by k nodes,where k is a given positive integer smaller than or equal to length of the linked list.
+function SpiralOrderMatrix(arr) {
+  const result = [];
+  let [top, bottom, left, right] = [0, arr.length - 1, 0, arr[0]?.length - 1];
+  let direction = 0;
+  // 0 => left to right, 1 => top to bottom, 2 => right to left, 3 => bottom to top
 
-class Node {
-  constructor(val, next = null) {
-    this.val = val;
-    this.next = next;
+  while (top <= bottom && left <= right) {
+    if (direction === 0) {
+      for (let i = left; i <= right; i++) result.push(arr[top][i]);
+      top++;
+    } else if (direction === 1) {
+      for (let i = top; i <= bottom; i++) result.push(arr[i][right]);
+      right--;
+    } else if (direction === 2) {
+      for (let i = right; i >= left; i--) result.push(arr[bottom][i]);
+      bottom--;
+    } else if (direction === 3) {
+      for (let i = bottom; i >= top; i--) result.push(arr[i][left]);
+      left++;
+    }
+    direction = (direction + 1) % 4;
   }
+
+  return result;
 }
 
-function rotateLinkedList(head, k) {
-  let current = head;
-  let prev = head;
-  let count = k;
-  while (count > 0) {
-    prev = current;
-    current = current.next;
-    count--;
-  }
-  if (current == null || k == 0) return head;
-  prev.next = null;
-  const oldHead = head;
-  head = current;
-  while (current.next != null) current = current.next;
-  current.next = oldHead;
+const array = [
+  [1, 2, 3],
+  [4, 5, 6],
+  [7, 8, 9],
+];
 
-  return head;
-}
-
-const head = new Node(1, new Node(2, new Node(3, new Node(4))));
-
-console.log(rotateLinkedList(head, 2));
+console.log(SpiralOrderMatrix(array));

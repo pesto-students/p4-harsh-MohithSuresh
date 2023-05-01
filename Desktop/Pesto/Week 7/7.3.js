@@ -1,38 +1,18 @@
-// Detect loop in a linked list using Floyd's Tortoise and Hare Algorithm
+// Counting Sort Approaches where k=3
+// array should contain only 0's, 1's and 2's
 
-class Node {
-  constructor(val, next = null) {
-    this.val = val;
-    this.next = next;
-  }
+function sortArray(arr) {
+  const countArray = new Array(3); // as k=3
+  arr.forEach((num) => (countArray[num] = ++countArray[num] || 1)); // NaN is falsy
+
+  arr.length = 0; // clear array
+  countArray.forEach((count, idx) => {
+    for (let i = 0; i < count; i++) arr.push(idx);
+  });
+
+  return arr;
 }
 
-function hasCycleLL(head) {
-  let hare = head;
-  let tortoise = head;
-  let isFound = false;
-  while (hare != null && hare.next != null) {
-    tortoise = tortoise.next;
-    hare = hare.next.next;
-    if (hare == tortoise) {
-      isFound = true;
-      break;
-    }
-  }
+const arr = [0, 2, 1, 2, 0];
 
-  // finding the where cycle begins
-  if (isFound) {
-    let pointer = head;
-    while (pointer != tortoise) {
-      pointer = pointer.next;
-      tortoise = tortoise.next;
-    }
-    console.log("Cycle found at node : " + pointer.val);
-  }
-  return isFound;
-}
-
-const head = new Node(1, new Node(2, new Node(3, new Node(4))));
-head.next.next.next = head.next; // create a cycle from node 4 to node 2
-
-console.log(hasCycleLL(head));
+console.log(sortArray(arr));
