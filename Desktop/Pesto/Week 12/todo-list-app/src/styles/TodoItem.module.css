@@ -1,0 +1,16 @@
+.item {
+  cursor: pointer;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+  list-style: none;
+  font-size: 18px;
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.item.completed {
+  text-decoration: line-through;
+  color: #888;
+}
